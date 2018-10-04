@@ -98,7 +98,10 @@ public class BodyGui
 		tabbedPane.setBounds(0, 0, 404, 287);
 		frmBody.getContentPane().add(tabbedPane);
 		
-		//Create body panel
+//------------------------------------------------------------------------------
+//----------------------------CREATE BODY PANEL---------------------------------
+//------------------------------------------------------------------------------
+		
 		JPanel pnlCreateBody = new JPanel();
 		tabbedPane.addTab("Create Body", null, pnlCreateBody, null);
 		pnlCreateBody.setLayout(null);
@@ -134,7 +137,7 @@ public class BodyGui
 		pnlCreateBody.add(txtBodyID);
 		txtBodyID.setColumns(10);
 		
-		//ALL COMBOBOXES ARE USING RAW TYPE JCOMBO BOX FOR WINDOWBUILDER, WHICH DOES NOT COMPILE GENERIC TYPE 
+		//ALL COMBOBOXES ARE USING RAW TYPE JCOMBO BOX FOR WINDOWBUILDER COMPATIBALITY, WHICH DOES NOT COMPILE GENERIC TYPE 
 		
 		//Select body wood combo box
 		JComboBox cmbBoxBodyWood = new JComboBox();
@@ -161,7 +164,7 @@ public class BodyGui
 		rdbtnCarvetopYes.setBounds(239, 120, 57, 29);
 		pnlCreateBody.add(rdbtnCarvetopYes);
 		
-		//Select carvetop option no
+		//Select carve top option no
 		JRadioButton rdbtnCarvetopNo = new JRadioButton("No");
 		btnGroupCarveTop.add(rdbtnCarvetopNo);
 		rdbtnCarvetopNo.setBounds(317, 120, 53, 29);
@@ -279,12 +282,13 @@ public class BodyGui
 		btnProductMenu.setBounds(210, 180, 168, 69);
 		pnlCreateBody.add(btnProductMenu);
 		
+//------------------------------------------------------------------------------
+//----------------------------REVIEW BODY PANEL---------------------------------
+//------------------------------------------------------------------------------
 		
-		//Update body panel
 		JPanel pnlUpdateBody = new JPanel();
 		tabbedPane.addTab("Update Body", null, pnlUpdateBody, null);
 		pnlUpdateBody.setLayout(null);
-		
 		
 		//Update body labels
 		JLabel lblUpdateBodyWood = new JLabel("Update Body Wood:");
@@ -396,7 +400,7 @@ public class BodyGui
 				else
 					hollowBody = 'N';				
 				
-				//Conformation dialogue
+				//Confirmation dialogue
 				int choice = JOptionPane.showConfirmDialog(null, "Is The Following Information Correct?"
 						+ "\nID: " + ID + "\nBody Wood: " + bodyWood + "\nTop Wood: " + topWood
 						+ "\nShape: " + shape + "\nCarve Top: " + carveTop + "\nHollow Body: "
@@ -470,13 +474,14 @@ public class BodyGui
 					{
 						ID = Integer.parseInt(txtUpdateBodyID.getText()); //tries to parse ID as int
 					}
-					catch(NumberFormatException e1)
+					catch(NumberFormatException e1)//improper input
 					{
 						JOptionPane.showMessageDialog(null, "ID must consist of only numbers",
 								"Error", JOptionPane.ERROR_MESSAGE, null);
 						return;
 					}
 					
+					//init attribute values
 					int returnID = 0;
 					String bodyWood = null;
 					String topWood = null;
@@ -484,7 +489,7 @@ public class BodyGui
 					String carveTop = null;
 					String hollowBody = null;
 					
-					try
+					try //get current body attributes from database
 					{
 						returnID = OracleJDBC.readBodyID(ID);
 						bodyWood = OracleJDBC.readBodyWood(ID);
@@ -494,7 +499,7 @@ public class BodyGui
 						hollowBody = OracleJDBC.readHollowBody(ID);
 						
 					} 
-					catch (SQLException e1)
+					catch (SQLException e1)//could not retrieve body data
 					{
 						JOptionPane.showMessageDialog(null, "Could Not Retrieve Body Info",
 	                            "Error", JOptionPane.ERROR_MESSAGE, null);
@@ -502,7 +507,7 @@ public class BodyGui
 					}		
 					
 					
-					if(returnID != 0) //checks if body exists
+					if(returnID != 0) //checks if body exists, updates form items to current attibutes
 					{
 					
 						cmbBoxUpdateBodyWood.setSelectedItem(bodyWood);
@@ -529,7 +534,7 @@ public class BodyGui
 						
 						btnUpdateBody.setEnabled(true);
 					}
-					else
+					else //body with user input ID not in database
 					{
 						JOptionPane.showMessageDialog(null, "Could Not Retrieve Body Info, Body ID " + ID +" does not exist",
 	                            "Error", JOptionPane.ERROR_MESSAGE, null);
@@ -542,10 +547,15 @@ public class BodyGui
 		btnEnter.setBounds(309, 7, 73, 23);
 		pnlUpdateBody.add(btnEnter);
 		
+//------------------------------------------------------------------------------
+//----------------------------REVIEW BODY PANEL---------------------------------
+//------------------------------------------------------------------------------
+		
 		JPanel pnlReviewBody = new JPanel();
 		tabbedPane.addTab("Review Body", null, pnlReviewBody, null);
 		pnlReviewBody.setLayout(null);
 		
+		//review body labels 		
 		JLabel lblReviewBodyID = new JLabel("Enter Body ID For Info:");
 		lblReviewBodyID.setBounds(10, 8, 167, 20);
 		pnlReviewBody.add(lblReviewBodyID);
@@ -570,6 +580,7 @@ public class BodyGui
 		lblHollowBodyOption.setBounds(10, 225, 148, 20);
 		pnlReviewBody.add(lblHollowBodyOption);
 		
+		//Enter ID for review
 		txtReviewBodyID = new JTextField();
 		txtReviewBodyID.setColumns(10);
 		txtReviewBodyID.setBounds(209, 8, 171, 20);
@@ -595,6 +606,8 @@ public class BodyGui
 		lblShowHollowBody.setBounds(214, 219, 157, 14);
 		pnlReviewBody.add(lblShowHollowBody);
 		
+		
+		//Retrieve data from database for review
 		JButton btnGetInfo = new JButton("Get Info");
 		btnGetInfo.addActionListener(new ActionListener()
 		{
@@ -613,6 +626,7 @@ public class BodyGui
 						return;
 					}
 					
+					//initialize data strings
 					int returnID = 0;
 					String bodyWood = null;
 					String topWood = null;
@@ -620,6 +634,8 @@ public class BodyGui
 					String carveTop = null;
 					String hollowBody = null;
 					
+					
+					//retrieve data of body object with user input ID
 					try
 					{
 						returnID = OracleJDBC.readBodyID(ID);
@@ -630,7 +646,7 @@ public class BodyGui
 						hollowBody = OracleJDBC.readHollowBody(ID);
 						
 					} 
-					catch (SQLException e1)
+					catch (SQLException e1) //Data could not be pulled
 					{
 						JOptionPane.showMessageDialog(null, "Could Not Retrieve Body Info",
 	                            "Error", JOptionPane.ERROR_MESSAGE, null);
@@ -638,14 +654,14 @@ public class BodyGui
 					}		
 					
 					
-					if(returnID != 0) //checks if body exists
+					if(returnID != 0) //checks if body exists, displays info
 					{
 					
 						lblShowBodyWood.setText(bodyWood);
 						lblShowTopWood.setText(topWood);
 						lblShowShape.setText(shape);
 						
-						
+						//translated DB value to display strings
 						if (carveTop.equals("Y"))
 						{
 							lblShowCarvetopOption.setText("Yes");
@@ -679,6 +695,7 @@ public class BodyGui
 		btnGetInfo.setBounds(10, 36, 171, 69);
 		pnlReviewBody.add(btnGetInfo);
 		
+		//returns user to previous menu
 		JButton btnReviewProductMenu = new JButton("Product Menu");
 		btnReviewProductMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
@@ -691,12 +708,16 @@ public class BodyGui
 		btnReviewProductMenu.setBounds(209, 36, 171, 69);
 		pnlReviewBody.add(btnReviewProductMenu);
 		
-		
+//------------------------------------------------------------------------------
+//----------------------------DELETE BODY PANEL---------------------------------
+//------------------------------------------------------------------------------
 		
 		JPanel pnlDeleteBody = new JPanel();
 		tabbedPane.addTab("Delete Body", null, pnlDeleteBody, null);
 		pnlDeleteBody.setLayout(null);
 		
+		
+		//Deletes body from DB with user input ID
 		JButton btnDeleteBody = new JButton("Delete Body");
 		btnDeleteBody.addActionListener(new ActionListener()
 		{
@@ -721,7 +742,7 @@ public class BodyGui
 				String carveTop = null;
 				String hollowBody = null;
 				
-				try
+				try //try to return body info
 				{
 					returnID = OracleJDBC.readBodyID(ID);
 					bodyWood = OracleJDBC.readBodyWood(ID);
@@ -739,12 +760,12 @@ public class BodyGui
 				}		
 				
 				
-				if (returnID == 0)
+				if (returnID == 0) //Body does not exist
 				{
 					JOptionPane.showMessageDialog(null, "Body with ID " + ID + " does not exist!",
                             "Error", JOptionPane.ERROR_MESSAGE, null);
 				}
-				else
+				else //confirmation message
 				{
 					int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete the following Body?"
 							+ "\nID: " + ID + "\nBody Wood: " + bodyWood + "\nTop Wood: " + topWood
@@ -753,7 +774,7 @@ public class BodyGui
 							JOptionPane.YES_NO_OPTION);
 					
 					
-					if (choice == 0)
+					if (choice == 0) //user confirmed delete
 					{
 						try
 						{
