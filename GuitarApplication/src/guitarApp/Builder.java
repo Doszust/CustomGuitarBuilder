@@ -62,6 +62,7 @@ public class Builder
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		productsMenu.setLocation(dim.width/2-productsMenu.getSize().width/2, dim.height/2-productsMenu.getSize().height/2);
 		
+		//Opens the create neck window
 		JButton btnCreateANeck = new JButton("Neck");
 		btnCreateANeck.addActionListener(new ActionListener()
 		{
@@ -76,6 +77,7 @@ public class Builder
 		btnCreateANeck.setBounds(10, 11, 120, 48);
 		productsMenu.getContentPane().add(btnCreateANeck);
 		
+		//opens the create body window
 		JButton btnCreateABody = new JButton("Body");
 		btnCreateABody.setEnabled(true);
 		btnCreateABody.addActionListener(new ActionListener()
@@ -91,6 +93,7 @@ public class Builder
 		btnCreateABody.setBounds(140, 11, 118, 48);
 		productsMenu.getContentPane().add(btnCreateABody);
 		
+		//opens the hardware selection window
 		JButton btnSelectHardware = new JButton("Hardware");
 		btnSelectHardware.setEnabled(true);
 		btnSelectHardware.addActionListener(new ActionListener() 
@@ -106,6 +109,7 @@ public class Builder
 		btnSelectHardware.setBounds(10, 70, 120, 48);
 		productsMenu.getContentPane().add(btnSelectHardware);
 		
+		//opens the cosmetic selection window
 		JButton btnSelectCosmetics = new JButton("Cosmetics");
 		btnSelectCosmetics.setEnabled(true);
 		btnSelectCosmetics.addActionListener(new ActionListener()
@@ -121,6 +125,7 @@ public class Builder
 		btnSelectCosmetics.setBounds(140, 70, 118, 48);
 		productsMenu.getContentPane().add(btnSelectCosmetics);
 		
+		//opens the guitar assembly window
 		JButton btnAssembleAGuitar = new JButton("Products");
 		btnAssembleAGuitar.setEnabled(true);
 		btnAssembleAGuitar.addActionListener(new ActionListener()
@@ -136,6 +141,7 @@ public class Builder
 		btnAssembleAGuitar.setBounds(10, 129, 120, 48);
 		productsMenu.getContentPane().add(btnAssembleAGuitar);
 		
+		//returns to main menu
 		JButton btnMainMenu = new JButton("Main Menu");
 		btnMainMenu.addActionListener(new ActionListener()
 		{

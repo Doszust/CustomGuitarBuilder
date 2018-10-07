@@ -4,7 +4,6 @@ package guitarApp;
  * @author Dylan Oszust
  * 
  * This class creates a guitar body object
- * The body will 
  */
 
 public class Body
