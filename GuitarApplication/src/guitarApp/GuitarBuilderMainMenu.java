@@ -67,9 +67,10 @@ public class GuitarBuilderMainMenu
 	private void initialize()
 	{
 		mainMenu = new JFrame();
+		mainMenu.setResizable(false);
 		mainMenu.setTitle("Guitar Builder");
 		mainMenu.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
-		mainMenu.setBounds(100, 100, 300, 213);
+		mainMenu.setBounds(100, 100, 289, 221);
 		mainMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainMenu.getContentPane().setLayout(null);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
