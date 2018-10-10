@@ -3,7 +3,8 @@ package guitarApp;
 /**
  * @author Dylan Oszust
  * 
- * This class creates a guitar body object
+ * This class creates a guitar body object which can be stored
+ * in the database for future management
  */
 
 public class Body
